@@ -114,6 +114,9 @@ def move(json_data,type):
         outputClientPath=os.path.join(json_data["output"],type)
         for format in moveRoot[type]:
             outputClientFormatPath=os.path.join(outputClientPath,format)
+            if not os.path.exists(outputClientFormatPath):
+                os.makedirs(outputClientFormatPath)
+            
             for it in moveRoot[type][format]:
                 if not os.path.exists(it):
                     os.makedirs(it)
