@@ -76,7 +76,10 @@ def process_excel(filepath,outputPath):
                     col_value = sheet.cell(row=row, column=col).value
 
                     if col_type == "json":
-                        col_value=json.loads(col_value)
+                        if col_value:
+                            col_value=json.loads(col_value)
+                        else:
+                            col_value={}
                     
                     if col_key and not col_key.startswith("#"):
                         if not col_key.startswith("!"):
