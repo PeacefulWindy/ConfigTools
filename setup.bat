@@ -1,3 +1,2 @@
-python -m pip install openpyxl
-python -m pip install slpp
+python -m pip install openpyxl slpp
 pause
