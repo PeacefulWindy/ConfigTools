@@ -70,7 +70,7 @@ def process_excel(filepath,outputPath):
                 first_col_value = sheet.cell(row=row, column=1).value
                 client_row_data = {}
                 server_row_data = {}
-                for col in range(2, sheet.max_column + 1):
+                for col in range(1, sheet.max_column + 1):
                     col_key = sheet.cell(row=1, column=col).value
                     col_type = sheet.cell(row=2,column=col).value
                     col_value = sheet.cell(row=row, column=col).value
