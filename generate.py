@@ -68,6 +68,9 @@ def process_excel(filepath,outputPath):
             
             for row in range(4, sheet.max_row + 1):
                 first_col_value = sheet.cell(row=row, column=1).value
+                if not first_col_value:
+                    continue
+                
                 client_row_data = {}
                 server_row_data = {}
                 for col in range(1, sheet.max_column + 1):
