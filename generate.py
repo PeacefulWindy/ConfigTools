@@ -83,6 +83,18 @@ def process_excel(filepath,outputPath):
                             col_value=json.loads(col_value)
                         else:
                             col_value={}
+                    elif col_type == "int":
+                        if not col_value:
+                            col_value=0
+                    elif col_type == "float":
+                        if not col_value:
+                            col_value=0.0
+                    elif col_type == "string":
+                        if not col_value:
+                            col_value=""
+                    elif col_type == "bool":
+                        if not col_value:
+                            col_value=False
                     
                     if col_key and not col_key.startswith("#"):
                         if not col_key.startswith("!"):
