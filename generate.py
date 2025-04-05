@@ -15,7 +15,7 @@ def export_to_lua(sheet_name, data, output_dir):
 def export_to_json(sheet_name, data, output_dir):
     output_file = os.path.join(output_dir, f"{sheet_name}.json")
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=None,separators=(",", ":"))
 
 def export_dict_to_xml(parent, data):
     if isinstance(data, dict):
