@@ -186,6 +186,9 @@ def move(configData,target):
             shutil.copytree(inputTargetPath,outPutPath,dirs_exist_ok=True)
 
 def main(configData):
+    global sheets
+    sheets={}
+    
     inputPath=os.path.abspath(configData["input"])
     outputPath=os.path.abspath(configData["output"])
 
@@ -244,10 +247,21 @@ def run(configData):
 
 configData={}
 class FileMonitor(FileSystemEventHandler):
+    def __init__(self):
+        self.lastModifiedTimes = {}
+    
     def on_modified(self, event):
         if not event.is_directory:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            run(configData)
+            filePath=event.src_path
+            if filePath[0] == "~" or not filePath.endswith(".xlsx"):
+                return
+            
+            curTime=os.path.getmtime(filePath)
+
+            if filePath not in self.lastModifiedTimes or self.lastModifiedTimes[filePath] != curTime:
+                self.lastModifiedTimes[filePath] = curTime
+                os.system('cls' if os.name == 'nt' else 'clear')
+                run(configData)
 
 if __name__ == "__main__":
     colorama.init(autoreset=True)
