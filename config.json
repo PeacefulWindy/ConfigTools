@@ -1,0 +1,30 @@
+{
+    "input":"excel",
+    "output":"output",
+    "move":{
+        "client":
+        {
+            "xml":[
+                "move/client/xml"
+            ],
+            "json":[
+                "move/client/json"
+            ],
+            "lua":[
+                "move/client/lua"
+            ]
+        },
+        "server":
+        {
+            "xml":[
+                "move/server/xml"
+            ],
+            "json":[
+                "move/server/json"
+            ],
+            "lua":[
+                "move/server/lua"
+            ]
+        }
+    }
+}
