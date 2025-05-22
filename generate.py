@@ -71,6 +71,8 @@ def generateExcel(filePath,outputPath):
         
         sheets[sheetName]=filePath
         print("sheetName:%s" % sheetName)
+        
+        idKey = sheet.cell(row=2, column=1).value
 
         for ext,func in formatFunc.items():
             outputClientDir = os.path.join(outputClientRootDir, ext)
@@ -85,12 +87,15 @@ def generateExcel(filePath,outputPath):
             serverData = {}
 
             ids=[]
-            keys=[]
             
             for row in range(4, sheet.max_row + 1):
                 id = sheet.cell(row=row, column=1).value
+
                 if not id:
                     continue
+
+                if idKey == "int":
+                    id=int(id)
 
                 if id in ids:
                     print("%srepeat id:%s\nfile:%s\nsheetName:%s\n" % (colorama.Fore.RED,id,filePath,sheetName))
@@ -101,10 +106,15 @@ def generateExcel(filePath,outputPath):
                 clientRowData = {}
                 serverRowData = {}
 
+                keys=[]
                 for col in range(1, sheet.max_column + 1):
                     colKey = sheet.cell(row=1, column=col).value
                     if not colKey or len(colKey) <= 0:
                         continue
+
+                    if colKey in keys:
+                        print("%srepeat key:%s\nfile:%s\nsheetName:%s\nid:%s" % (colorama.Fore.RED,id,filePath,sheetName,str(id)))
+                        return
 
                     keyFirstChar=colKey[0]
 
@@ -135,15 +145,21 @@ def generateExcel(filePath,outputPath):
                     elif colType == "int":
                         if not colValue:
                             colValue=0
+                        else:
+                            colValue=int(colValue)
                     elif colType == "float":
                         if not colValue:
                             colValue=0.0
+                        else:
+                            colValue=float(colValue)
                     elif colType == "string":
                         if not colValue:
                             colValue=""
                     elif colType == "bool":
                         if not colValue:
                             colValue=False
+                        else:
+                            colValue=bool(colValue)
                     
                     if keyFirstChar != "!":
                         clientRowData[key]=colValue
