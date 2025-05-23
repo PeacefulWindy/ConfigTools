@@ -113,8 +113,10 @@ def generateExcel(filePath,outputPath):
                         continue
 
                     if colKey in keys:
-                        print("%srepeat key:%s\nfile:%s\nsheetName:%s\nid:%s" % (colorama.Fore.RED,id,filePath,sheetName,str(id)))
+                        print("%srepeat key:%s\nfile:%s\nsheetName:%s\nid:%s" % (colorama.Fore.RED,colKey,filePath,sheetName,str(id)))
                         return
+                    
+                    keys.append(colKey)
 
                     keyFirstChar=colKey[0]
 
