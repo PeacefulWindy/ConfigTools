@@ -265,19 +265,26 @@ configData={}
 class FileMonitor(FileSystemEventHandler):
     def __init__(self):
         self.lastModifiedTimes = {}
-    
+        self.isRun=False
+        run(configData)
+
     def on_modified(self, event):
         if not event.is_directory:
             filePath=event.src_path
             if filePath[0] == "~" or not filePath.endswith(".xlsx"):
                 return
             
+            if self.isRun:
+                return
+
             curTime=os.path.getmtime(filePath)
 
             if filePath not in self.lastModifiedTimes or self.lastModifiedTimes[filePath] != curTime:
                 self.lastModifiedTimes[filePath] = curTime
                 os.system('cls' if os.name == 'nt' else 'clear')
+                self.isRun=True
                 run(configData)
+                self.isRun=False
 
 if __name__ == "__main__":
     colorama.init(autoreset=True)
